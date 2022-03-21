@@ -1,0 +1,119 @@
+{
+  "apps": [
+    {
+      "config": {
+        "env": {
+          "ELIXIR_ERL_OPTIONS": "-proto_dist inet6_tcp",
+          "LIVEBOOK_DATA_PATH": "/data",
+          "LIVEBOOK_HOME": "/data",
+          "LIVEBOOK_IP": "::",
+          "LIVEBOOK_ROOT_PATH": "/data",
+          "PORT": "8080"
+        },
+        "image": "redis",
+        "mounts": [
+          {
+            "destination": "/data",
+            "source": "livebook_data"
+          }
+        ],
+        "services": [
+          {
+            "concurrency": {
+              "hard_limit": 25,
+              "soft_limit": 20,
+              "type": "connections"
+            },
+            "http_checks": [],
+            "internal_port": 6379,
+            "ports": [
+              {
+                "handlers": [
+                  "http"
+                ],
+                "port": 6379
+              }
+            ],
+            "protocol": "tcp",
+            "script_checks": [],
+            "tcp_checks": [
+              {
+                "grace_period": "1s",
+                "interval": "15s",
+                "restart_limit": 6,
+                "timeout": "2s"
+              }
+            ]
+          }
+        ]
+      },
+      "name": "${app_name}",
+      "regions": [
+        "${region}"
+      ],
+      "secrets": [
+        {
+          "name": "LIVEBOOK_PASSWORD",
+          "value": "${livebook_password}"
+        },
+        {
+          "name": "LIVEBOOK_SECRET_KEY_BASE",
+          "value": "${livebook_secret_key_base}"
+        }
+      ],
+      "vm_counts": {
+        "app": 1
+      },
+      "vm_size": "shared-cpu-1x",
+      "volumes": [
+        {
+          "name": "livebook_data",
+          "placement": {
+            "${region}": 1
+          },
+          "size": 1
+        }
+      ]
+    }
+  ],
+  "description": "Livebook is a web application for writing interactive and collaborative code notebooks.",
+  "free_tier": true,
+  "logo_url": "/ui/images/livebook-logo.png",
+  "name": "Damn Livebook",
+  "needs_billing?": false,
+  "parameters": [
+    {
+      "label": "Pick an app name",
+      "name": "app_name",
+      "placeholder": "example: myorg-livebook",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "name": "region",
+      "required": true,
+      "type": "region"
+    },
+    {
+      "generate": 32,
+      "help_text": "Save this password in a secure place. You won’t be able to see it again, though you can change it with `flyctl secrets set LIVEBOOK_PASSWORD=...`",
+      "label": "LIVEBOOK_PASSWORD",
+      "name": "livebook_password",
+      "required": true,
+      "store_in_cookie": true,
+      "type": "string"
+    }
+  ],
+  "post_instructions": "Your new Livebook app is ready to go",
+  "repository_url": "https://github.com/elixir-nx/livebook/",
+  "template_description": "This template will deploy a Livebook VM with an attached persistent volume.",
+  "validators": [],
+  "values": [
+    {
+      "generate": 64,
+      "label": "LIVEBOOK_SECRET_KEY_BASE",
+      "name": "livebook_secret_key_base",
+      "type": "string"
+    }
+  ]
+}
