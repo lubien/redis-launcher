@@ -1,14 +1,6 @@
 image = "redis"
 
 [env]
-  DATABASE_URL = "file:/data/sqlite.db"
-  NODE_ENV = "production"
-  PORT = "8080"
-
-[mounts]
-  destination = "/data"
-  size_gb = 1
-  source = "data"
 
 [[services]]
 http_checks   = []
@@ -35,13 +27,6 @@ script_checks = []
 [launcher]
 name = "Redis"
 description = "Redis is an in-memory data structure store, used as a distributed, in-memory key–value database, cache and message broker, with optional durability."
-logo_url = "https://upload.wikimedia.org/wikipedia/commons/6/6b/Redis_Logo.svg"
+logo_url = "https://github.com/lubien/redis-launcher/raw/main/redis.png"
 post_instructions = "Your new Livebook app is ready to go"
 template_description = "This template will deploy a Livebook VM with an attached persistent volume."
-
-[requirements.secrets.FOO]
-  label = "Some foo"
-
-[requirements.secrets.SESSION_SECRET]
-  label = "Some SESSION_SECRET"
-  placeholder = "Some placeholder"
