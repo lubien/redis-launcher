@@ -28,5 +28,5 @@ script_checks = []
 name = "Redis"
 description = "Redis is an in-memory data structure store, used as a distributed, in-memory key–value database, cache and message broker, with optional durability."
 logo_url = "https://github.com/lubien/redis-launcher/raw/main/redis.png"
-post_instructions = "Your new Livebook app is ready to go"
-template_description = "This template will deploy a Livebook VM with an attached persistent volume."
+post_instructions = "Your new Redis app is ready to go"
+template_description = "This template will deploy a Redis VM."
